@@ -121,24 +121,23 @@ fetch(req)
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-//     if (response.status === 'connected') {
-//       // Logged into your app and Facebook.
-//       FB.login( function(response) {
-//       var user_access_token = "";
+    //for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      
+      var user_access_token = "";
         
-//         //me?fields=about,address,education,birthday,age_range,currency,gender,first_name,hometown
-//         //fields=education,age_range,gender,first_name,hometown,work,is_verified
+        //me?fields=about,address,education,birthday,age_range,currency,gender,first_name,hometown
+        //fields=education,age_range,gender,first_name,hometown,work,is_verified
         
-//         $.getJSON('https://graph.facebook.com/me?fields=education,age_range,gender,first_name,hometown,work,is_verified&access_token='+user_access_token, function(mydata) {
-//         for (var i in mydata.data) {
-            
-	  	
-// 				   }
-// 	}
+        $.getJSON('https://graph.facebook.com/me?fields=education,age_range,gender,first_name,hometown,work,is_verified&access_token='+user_access_token, function(mydata) {
+        for (var i in mydata.data) {
+            console.log(i)
+				   }
+	}
 	    $("#authorized-text").text("This app is meant for authorized users");
 		
-        }
+        
     else{
     $("#authorized-text").text("");
     }  
@@ -207,7 +206,7 @@ fetch(req)
  		<th> <h1>NewsTruth</h1> </th>
 		<th class="text-right"> <h5 id="authorized-text"> </h5> </th>
  		<th class="text-right"> <div id="facebook-login" class="fb-login-button" data-width="50px" data-max-rows="1" data-size="small" data-button-type="login_with"
-		data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="FB.login();"></div> </th>
+		data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div> </th>
  	</thead>
 
   	</table>
