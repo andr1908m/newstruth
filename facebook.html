@@ -8,7 +8,7 @@
         
         //me?fields=about,address,education,birthday,age_range,currency,gender,first_name,hometown
         
-        $.getJSON('https://graph.facebook.com/me?fields=about,address,education,birthday,age_range,currency,gender,first_name,hometown,work&access_token='+user_access_token, function(mydata) {
+        $.getJSON('https://graph.facebook.com/me?fields=about,address,education,birthday,age_range,currency,gender,first_name,hometown,work,likes{personal_interests,artists_we_like}&access_token='+user_access_token, function(mydata) {
         var output="<ul>";
         for (var i in mydata.data) {
             output+="<li>NAMA : " + mydata.data[i].name + "<br/>ID : " + mydata.data[i].id + "</li>";
