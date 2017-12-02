@@ -9,35 +9,46 @@
   <script src="https://use.fontawesome.com/c5f7817904.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript">
+  	var url = 'https://newsapi.org/v2/everything?' +
+          'q=everything&' +
+          'sortBy=popularity&' +
+          'apiKey=ecd3e07151554b989cf0b15d8fd91c6c';
+
+	var req = new Request(url);
+
+	fetch(req)
+	    .then(response => response.json())
+	    .then(json => {
+	        //var ne = json;
+	        console.log(json);
+	        if (json.hasOwnProperty('articles')) {
+	            var articles = json['articles']
+	            for (key in articles) {
+	                var record = articles[key];
+	                for (elements in record) {
+	                    if (record.hasOwnProperty('title')) {
+	                       	$(document).ready(function(){
+    						$("#headline1").text(record.title);
+							});
+	                    }
+	                    if (record.hasOwnProperty('author')) {
+	      //                   $(document).ready(function(){
+    			// 			$("#headline1").text(record.author);
+							// });
+	                    }
+	                     if (record.hasOwnProperty('url')) {
+	                        console.log(record.url);
+	                     }
+	                     if (record.hasOwnProperty('publishedAt')) {
+	                        console.log(record.publishedAt);
+	                        console.log("");
+	                     }
+	                }
+	             }
+	        }
+	    })
+
   	
-
-  	function getResponse()
-        {
-            $.ajax({
-                type: "GET",               
-                url: "https://jsonplaceholder.typicode.com/posts/1",               
-                dataType: "json",
-               
-               	error: function (response) {           
-                        alert('Error: There was a problem processing your request, please refresh the browser and try again');
-                },
-                success: function (response) {
-            	console.log(response);
-            	var random = response;
-            	return random;
-               }
-        });
-
-        } 
-
-    //var response = getResponse();
-    var number = getResponse();
-  	var textForHeadline = JSON.parse(number);
-  	var title = textForHeadline.title;
-
-  	$(document).ready(function(){
-    $("#headline1").text(title);
-});
   </script>
 
 
