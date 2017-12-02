@@ -115,7 +115,7 @@ fetch(req)
         
         $.getJSON('https://graph.facebook.com/me?fields=education,age_range,gender,first_name,hometown,work,is_verified&access_token='+user_access_token, function(mydata) {
            
-           name_of_user = mydata[first_name];
+           name_of_user = mydata[3];
            console.log(name_of_user)
            //for (var i in mydata) {
             
