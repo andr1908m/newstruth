@@ -122,8 +122,8 @@ fetch(req)
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
+//     if (response.status === 'connected') {
+//       // Logged into your app and Facebook.
 //       FB.login( function(response) {
 //       var user_access_token = "";
         
@@ -132,15 +132,10 @@ fetch(req)
         
 //         $.getJSON('https://graph.facebook.com/me?fields=education,age_range,gender,first_name,hometown,work,is_verified&access_token='+user_access_token, function(mydata) {
 //         for (var i in mydata.data) {
-//             var isVerified = mydata.data[6].is_verified;
-// 	    if (isVerified){
-	    	
-// 	    }
-	    
-// 	    else{
-	    	
-		  
-// 	    }
+            
+	  	
+// 				   }
+// 	}
 	    $("#authorized-text").text("This app is meant for authorized users");
 		
         }
@@ -212,7 +207,7 @@ fetch(req)
  		<th> <h1>NewsTruth</h1> </th>
 		<th class="text-right"> <h5 id="authorized-text"> </h5> </th>
  		<th class="text-right"> <div id="facebook-login" class="fb-login-button" data-width="50px" data-max-rows="1" data-size="small" data-button-type="login_with"
-		data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div> </th>
+		data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="FB.login();"></div> </th>
  	</thead>
 
   	</table>
