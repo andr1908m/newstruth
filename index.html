@@ -7,54 +7,159 @@
   <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
   
   <script src="https://use.fontawesome.com/c5f7817904.js"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+<!-- facebook script -->
+<script>
+
+    window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '148790889053890',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.11',
+      status
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+  </script>  
+   
+
   <script type="text/javascript">
-  	var url = 'https://newsapi.org/v2/everything?' +
-          'q=everything&' +
-          'sortBy=popularity&' +
+
+
+
+// window.fbAsyncInit = function(){
+// 	console.log("called!")
+//     FB.init({ appId:'148790889053890', status:true,  cookie:true, xfbml:true});
+//     FB.getLoginStatus(function(response){
+//         if (response.status === 'connected') {
+
+//            	$("#facebook-icon").remove();
+// 			$("#facebook-button").remove();
+//         } else if (response.status === 'not_authorized') {
+//            login();
+//         } else {
+//           login();
+//         }
+//     });
+// };
+
+// function login(){
+//    FB.login(function(response) {
+//       if (response.authResponse) {
+//          $("#facebook-icon").remove();
+// 		 $("#facebook-button").remove();
+//       } else {
+         
+//       }
+//    });
+// }
+
+// window.fbAsyncInit.apply();
+
+
+
+var topic = 'apple';
+
+var currentDate = new Date();
+
+console.log(currentDate.toLocaleDateString());
+
+
+var url = 'https://newsapi.org/v2/everything?' +
+          'q=' + topic + '&' +
+          'from=' + currentDate + "&" +
           'apiKey=ecd3e07151554b989cf0b15d8fd91c6c';
 
-	var req = new Request(url);
+var req = new Request(url);
+fetch(req)
+    .then(response => response.json())
+    .then(json => {
+        console.log(json);
+        if (json.hasOwnProperty('articles')) {
+            var articles = json['articles']
+            
+            
+            //var currentElement = 0;
+            for (key in articles) {
+                
+                if (key < 5){
+                var record = articles[key];
+                console.log(record);
+                
 
-	fetch(req)
-	    .then(response => response.json())
-	    .then(json => {
-	        //var ne = json;
-	        console.log(json);
-	        if (json.hasOwnProperty('articles')) {
-	            var articles = json['articles']
-	            for (key in articles) {
-	                var record = articles[key];
-	                for (elements in record) {
-	                    if (record.hasOwnProperty('title')) {
-	                       	$(document).ready(function(){
-    						$("#headline1").text(record.title);
-							});
-	                    }
-	                    if (record.hasOwnProperty('author')) {
-	      //                   $(document).ready(function(){
-    			// 			$("#headline1").text(record.author);
-							// });
-	                    }
-	                     if (record.hasOwnProperty('url')) {
-	                        console.log(record.url);
-	                     }
-	                     if (record.hasOwnProperty('publishedAt')) {
-	                        console.log(record.publishedAt);
-	                        console.log("");
-	                     }
-	                }
-	             }
-	        }
-	    })
+                if (record.hasOwnProperty('title') && record.hasOwnProperty('url') && record.hasOwnProperty('publishedAt')) {
+                    
+                    var url;
+                    console.log(record.title);
+                    // lol
+                    if (record.url.search("www.") == -1){
+                    	var firstPart = record.url.substring(0, record.url.indexOf("//") +2);
+                    	var secondPart = record.url.substring(record.url.indexOf("//") +3);
+                    	var newString = firstPart + "www." + secondPart;
+                    	console.log(newString);
+                    	url = newString;
+                    }
+
+
+                    $(document).ready(function(){
+                    $("#headline" + 1).attr("href", url);
+                    $("#headline" + 1).text(articles[0].title);
+	 				});	
+
+                    $(document).ready(function(){
+                    $("#headline" + 2).attr("href", url);
+                    $("#headline" + 2).text(articles[1].title);
+	 				});
+
+	 				$(document).ready(function(){
+                    $("#headline" + 3).attr("href", url);
+                    $("#headline" + 3).text(articles[2].title);
+	 				});
+	 				$(document).ready(function(){
+                    $("#headline" + 4).attr("href", url);
+                    $("#headline" + 4).text(articles[3].title);
+	 				});
+
+	 				$(document).ready(function(){
+	 				$("#headline" + 5).attr("href", url);
+                    $("#headline" + 5).text(articles[4].title);
+	 				});
+
+	 				console.log(record.publishedAt);
+                    console.log("");
+                    //currentElement++;
+
+                    }
+
+                }
+              
+             }
+
+             }
+        
+    })
+
+
 
   	
   </script>
 
 
+
+
 </head>
 
- <body class="">
+ <body class="container-fluid">
  
  <div class="container">
  	
@@ -62,8 +167,8 @@
  	
  	<thead>
  		<th> <h1>NewsTruth</h1> </th>
- 		<th class="text-right"> <a href="https://www.google.com" class="btn btn-primary">
-  <i class="fa fa-facebook-official " aria-hidden="true"></i> Login With Facebook
+ 		<th class="text-right"> <a href="#" class="btn btn-primary" id="facebook-icon">
+  <i class="fa fa-facebook-official " aria-hidden="true" id="facebook-button"></i> Login With Facebook
   	</a> </th>
  	</thead>
 
@@ -71,6 +176,18 @@
   	
  
 </div>
+
+<div class="container input-group ">
+	
+	<input type="text" class="form-control" placeholder="Input Topic To Search" >
+	
+	<span class="input-group-btn">
+	<button class="btn btn-primary" id="input-button">Search Topic</button>
+	</span>
+
+</div>
+
+<div class="container"> <p></p> </div> <!-- lol hacks -->
 
 <div class="container jumbotron">
 	
@@ -89,20 +206,15 @@
       <tbody>
         
         <tr>
-
-          <td><a href="https://www.nbcnews.com/feature/nbc-out/trump-failing-lead-hiv-advocates-say-world-aids-day-n824961" id="headline1"></a></td>
-          
+          <td><a id="headline1"></a></td>
           <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
-          
           <td id="time-1"></td>
-          
-
         </tr>
         
         <tr>
-          <td>Nick</td>
+          <td><a id="headline2"></a></td>
           <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
@@ -110,26 +222,26 @@
         </tr>
         
         <tr>
-          <td>Jose</td>
+          <td><a id="headline3"></a></td>
           <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
           <td id="time-3"></td>
         </tr>
 
-        <td><a href="https://www.nbcnews.com/feature/nbc-out/trump-failing-lead-hiv-advocates-say-world-aids-day-n824961">Trump failing to lead on HIV, advocates say on World AIDS Day</a></td>
+        <td><a id="headline4"></a></td>
           <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
-          <td id="time-3"></td>
+          <td id="time-4"></td>
         </tr>
         
         <tr>
-          <td>Nick</td>
+          <td><a id="headline5"></a></td>
           <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
           <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
-          <td id="candidate-2"></td>
+          <td id="time-5"></td>
         </tr>
         
       </tbody>
@@ -145,6 +257,4 @@
 </span>
 
 <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-<script src="app.js"></script>
 </html>
