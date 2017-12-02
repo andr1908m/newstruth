@@ -10,23 +10,14 @@
   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
   <script type="text/javascript">
-
 // window.fbAsyncInit.apply();
-
-
-
 var topic = 'apple';
-
 var currentDate = new Date();
-
 console.log(currentDate.toLocaleDateString());
-
-
 var url = 'https://newsapi.org/v2/everything?' +
           'q=' + topic + '&' +
           'from=' + currentDate + "&" +
           'apiKey=ecd3e07151554b989cf0b15d8fd91c6c';
-
 var req = new Request(url);
 fetch(req)
     .then(response => response.json())
@@ -43,62 +34,49 @@ fetch(req)
                 var record = articles[key];
                 console.log(record);
                 
-
                 if (record.hasOwnProperty('title') && record.hasOwnProperty('url') && record.hasOwnProperty('publishedAt')) {
                     
                     var url;
                     console.log(record.title);
                     // lol
                     if (record.url.search("www.") == -1){
-                    	var firstPart = record.url.substring(0, record.url.indexOf("//") +2);
-                    	var secondPart = record.url.substring(record.url.indexOf("//") +3);
-                    	var newString = firstPart + "www." + secondPart;
-                    	console.log(newString);
-                    	url = newString;
+                      var firstPart = record.url.substring(0, record.url.indexOf("//") +2);
+                      var secondPart = record.url.substring(record.url.indexOf("//") +3);
+                      var newString = firstPart + "www." + secondPart;
+                      console.log(newString);
+                      url = newString;
                     }
-
-
                     $(document).ready(function(){
                     $("#headline" + 1).attr("href", url);
                     $("#headline" + 1).text(articles[0].title);
-	 				});	
-
+          }); 
                     $(document).ready(function(){
                     $("#headline" + 2).attr("href", url);
                     $("#headline" + 2).text(articles[1].title);
-	 				});
-
-	 				$(document).ready(function(){
+          });
+          $(document).ready(function(){
                     $("#headline" + 3).attr("href", url);
                     $("#headline" + 3).text(articles[2].title);
-	 				});
-	 				$(document).ready(function(){
+          });
+          $(document).ready(function(){
                     $("#headline" + 4).attr("href", url);
                     $("#headline" + 4).text(articles[3].title);
-	 				});
-
-	 				$(document).ready(function(){
-	 				$("#headline" + 5).attr("href", url);
+          });
+          $(document).ready(function(){
+          $("#headline" + 5).attr("href", url);
                     $("#headline" + 5).text(articles[4].title);
-	 				});
-
-	 				console.log(record.publishedAt);
+          });
+          console.log(record.publishedAt);
                     console.log("");
                     //currentElement++;
-
                     }
-
                 }
               
              }
-
              }
         
     })
-
-
-
-  	
+    
   </script>
 
 
@@ -114,7 +92,7 @@ fetch(req)
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
-	 
+   
 <script>
 // Load the SDK asynchronously
   
@@ -130,30 +108,28 @@ fetch(req)
       
       user_access_token = FB.getAuthResponse()['accessToken'];
       console.log(FB.getAuthResponse()['accessToken']);
-	    
+      
         //me?fields=about,address,education,birthday,age_range,currency,gender,first_name,hometown
         //fields=education,age_range,gender,first_name,hometown,work,is_verified
         
         $.getJSON('https://graph.facebook.com/me?fields=education,age_range,gender,first_name,hometown,work,is_verified&access_token='+user_access_token, function(mydata) {
-	         for (var i in mydata.data) {
+           console.log(mydata)
+           for (var i in mydata.data) {
             console.log(i + "hello")
-				   }
-	         
-	                                             });
-	    $("#authorized-text").text("This app is meant for authorized users");
-		
+           }
+           
+                                               });
+      $("#authorized-text").text("This app is meant for authorized users");
+    
     } 
-
-
     else{
     $("#authorized-text").text("");
     }
-
       
   }
-	
-	
-	
+  
+  
+  
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
@@ -162,7 +138,6 @@ fetch(req)
       statusChangeCallback(response);
     });
   }
-
   window.fbAsyncInit = function() {
   FB.init({
     appId      : '148790889053890',
@@ -171,7 +146,6 @@ fetch(req)
     xfbml      : true,  // parse social plugins on this page
     version    : 'v2.8' // use graph api version 2.8
   });
-
   // Now that we've initialized the JavaScript SDK, we call 
   // FB.getLoginStatus().  This function gets the state of the
   // person visiting this page and can return one of three states to
@@ -183,52 +157,48 @@ fetch(req)
   //    your app or not.
   //
   // These three cases are handled in the callback function.
-
   checkLoginState();
-
   };
-
   
-
  
   
-</script>	
+</script> 
 
-	
-	
+  
+  
 
  
  <div class="container">
- 	
- 	<table class="table">
- 	
- 	<thead>
- 		<th> <h1>NewsTruth</h1> </th>
-		<th class="text-right"> <h5 id="authorized-text"> </h5> </th>
- 		<th class="text-right"> <div id="facebook-login" class="fb-login-button" data-width="50px" data-max-rows="1" data-size="small" data-button-type="login_with"
-		data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div> </th>
- 	</thead>
+  
+  <table class="table">
+  
+  <thead>
+    <th> <h1>NewsTruth</h1> </th>
+    <th class="text-right"> <h5 id="authorized-text"> </h5> </th>
+    <th class="text-right"> <div id="facebook-login" class="fb-login-button" data-width="50px" data-max-rows="1" data-size="small" data-button-type="login_with"
+    data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div> </th>
+  </thead>
 
-  	</table>
-  	
+    </table>
+    
  
 </div>
 
 <div class="container input-group ">
-	
-	<input type="text" class="form-control" placeholder="Input Topic To Search" >
-	
-	<span class="input-group-btn">
-	<button class="btn btn-primary" id="input-button">Search Topic</button>
-	</span>
+  
+  <input type="text" class="form-control" placeholder="Input Topic To Search" >
+  
+  <span class="input-group-btn">
+  <button class="btn btn-primary" id="input-button">Search Topic</button>
+  </span>
 
 </div>
 
 <div class="container"> <p></p> </div> <!-- lol hacks -->
 
 <div class="container jumbotron">
-	
-	<span class="border-0">
+  
+  <span class="border-0">
   <div id="address"></div>
   <div class="table-responsive">
     <table class="table table-hover table-striped">
