@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+
+var url = 'https://newsapi.org/v2/everything?' +
+          'q=Apple&' +
+          'from=2017-12-02&' +
+          'apiKey=ecd3e07151554b989cf0b15d8fd91c6c';
+
+var req = new Request(url);
+fetch(req)
+    .then(response => response.json())
+    .then(json => {
+        console.log(json);
+        if (json.hasOwnProperty('articles')) {
+            var articles = json['articles']
+            for (key in articles) {
+                var record = articles[key];
+                if (record.hasOwnProperty('title')) {
+                    console.log(record.title);
+                }
+                if (record.hasOwnProperty('author')) {
+                    console.log(record.author);
+                }
+                 if (record.hasOwnProperty('url')) {
+                    console.log(record.url);
+                 }
+                 if (record.hasOwnProperty('publishedAt')) {
+                    console.log(record.publishedAt);
+                    console.log("");
+                 }
+             }
+        }
+    })
+</script>
+</head>
+<body>
+</body>
+</html>
