@@ -3,7 +3,7 @@ pragma solidity ^0.4.11;
 
 /// @title Contract to bet Ether for a number and win randomly when the number of bets is met.
 /// @author Merunas Grincalaitis
-contract Casino {
+contract Voting {
    address owner;
 
    // The total amount of Ether bet for this current game
@@ -76,6 +76,7 @@ contract Casino {
       if (voteFor == 0) artNumberToTrueVoters[art_num].push(msg.sender);
 
       numberOfVotes += 1;
+      totalArticles[art_num].push(msg.sender);
       totalVotes += 1;
 
    }
@@ -86,27 +87,25 @@ contract Casino {
       uint winnerEtherAmount = 100 finney; // How much each winner gets
 
       // Loop through all the winners to send the corresponding prize for each one
-      for (int a = 0; a < 5; a++) {
-      for(uint i = 0; i < totalArticles[i].length; i++){
-        uint totalCount = totalArticles[i].length;
-        uint fake =  artNumberToFakeVoters[i].length;
-        uint majority = ( fake *10 )/totalCount;
-        if(majority > 7) {
-            for (uint j = 0; j < fake; j++) {
-                artNumberToFakeVoters[i][j].transfer(winnerEtherAmount);
+   
+          for(uint i = 1; i <= 5; i++){
+            uint totalCount = totalArticles[i].length;
+            uint fake =  artNumberToFakeVoters[i].length;
+            uint majority = ( fake *10 )/totalCount;
+            if(majority > 7) {
+                for (uint j = 0; j < fake; j++) {
+                    artNumberToFakeVoters[1][1] = 0xc91d9caA47e0a1904680284a2264624B6EDB55af;
+                    artNumberToFakeVoters[1][1].transfer(winnerEtherAmount);
+                }
+            } else {
+                 for (uint k = 0; k < artNumberToTrueVoters[i].length; k++) {
+                    artNumberToTrueVoters[i][k] = 0xc91d9caA47e0a1904680284a2264624B6EDB55af;
+    
+                    artNumberToTrueVoters[i][k].transfer(winnerEtherAmount);
+                }
             }
-        } else {
-             for (uint k = 0; k < artNumberToTrueVoters[i].length; k++) {
-                artNumberToFakeVoters[i][k].transfer(winnerEtherAmount);
-            }
-        }
     
 
-      }
-
-      totalVotes = 0;
-      numberOfVotes = 0;
-      }
-          
-      }
+          }
+   }
 }
