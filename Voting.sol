@@ -1,104 +1,112 @@
 pragma solidity ^0.4.11;
 
-/// @title Voting with delegation.
-contract Voting {
-    
+
+/// @title Contract to bet Ether for a number and win randomly when the number of bets is met.
+/// @author Merunas Grincalaitis
+contract Casino {
    address owner;
 
-   // reward given to each person
-   uint public reward = 100 finney; // Equal to 0.1 ether
+   // The total amount of Ether bet for this current game
+   uint public totalVotes;
 
-   uint public numberOfNewsArticles = 5;
+   // The total number of bets the users have made
+   uint public numberOfVotes;
 
-   uint public constant VOTING_LIMIT = 10000;
+   // The maximum amount of bets can be made for each game
+   uint public maxAmountOfVotes = 1000;
 
-    // This declares a new complex type which will
-    // be used for variables later.
-    // It will represent a single voter.
-    struct Voter {
-        mapping(uint => bool) voted;
-    }
+   // The max amount of bets that cannot be exceeded to avoid excessive gas consumption
+   // when distributing the prizes and restarting the game
+   uint public constant LIMIT_AMOUNT_VOTES = 100;
 
-    // This is a type for a single proposal.
-    struct Articles {
-        //bytes32 name;   // short name (up to 32 bytes)
+   // The number that won the last game
+   uint public numberWinner;
+
+   // Array of players
+   address[] public voters;
+
+   // Each article number has the number of players voting fake or no fake
+   mapping(uint => address[]) artNumberToFakeVoters;
+
+   mapping(uint => address[]) artNumberToTrueVoters;
    
-        address[] fakeVoters;
-        address[] trueVoters;
-        address[] unsureVoters;
-    }
+   
+   mapping(uint => address[]) totalArticles;
 
+   // The numbers that each voter voted for
+   mapping(address => uint[]) votesByEachVoter;
 
-    // This declares a state variable that
-    // stores a `Voter` struct for each possible address.
-    mapping(address => Voter) votersInfo;
+   // Modifier to only allow the execution of functions when the bets are completed
+   modifier onEndVoting(){
+      if(numberOfVotes >= maxAmountOfVotes) _;
+   }
 
-    // A dynamically-sized array of `Proposal` structs.
-    mapping(uint => Articles) articles;
-
-   function Voting(){
+   /// @notice Constructor that's used to configure the minimum bet per game and the max amount of bets
+   function Casino(uint _maxAmountOfVotes){
       owner = msg.sender;
+      if(_maxAmountOfVotes > 0 && _maxAmountOfVotes <= LIMIT_AMOUNT_VOTES)
+         maxAmountOfVotes = _maxAmountOfVotes;
 
    }
 
-    /// Give your vote (including votes delegated to you)
-    /// to proposal `proposals[proposal].name`.
+   function checkVoterExists(address voter) returns(bool){
+      if(votesByEachVoter[voter].length > 0)
+         return true;
+      else
+         return false;
+   }
 
-   function vote(uint voteVal, uint article) payable {
+   function vote(uint art_num, uint voteFor) {
 
-     
-      //assert(articles[article].totalCount <= VOTING_LIMIT);
-      // add assert for 5 articles 
+      // Check that the max amount of bets hasn't been met yet
+      assert(numberOfVotes < maxAmountOfVotes);
 
       // Check that the player doesn't exists
-    assert(votersInfo[msg.sender].voted[article] == false);
+     // assert(checkVoterExists(msg.sender) == false);
+
+      // Check that the number to bet is within the range
+      assert(art_num >= 1 && art_num <= 5);
 
 
-      // Set the number bet for that player
-      votersInfo[msg.sender].voted[article] = true;
+      // Set the number art num for each voter
+      votesByEachVoter[msg.sender].push(art_num);
 
       // The player msg.sender has bet for that number
-      //TODO
-      if (voteVal == 0) {
-         articles[article].fakeVoters.push(msg.sender);  
-      } else if (voteVal == 1) {
-         articles[article].trueVoters.push(msg.sender); 
-      } else {
-          articles[article].unsureVoters.push(msg.sender);  
-      }
+      if (voteFor == 1) artNumberToFakeVoters[art_num].push(msg.sender);
+      if (voteFor == 0) artNumberToTrueVoters[art_num].push(msg.sender);
+
+      numberOfVotes += 1;
+      totalVotes += 1;
 
    }
 
-    /// @dev Computes the winning proposal taking all
-    /// previous votes into account.
-    function distributeRewards() 
-    {
-       for (uint i = 1; i <= 5; i++) {
-           uint totalCount = articles[i].fakeVoters.length + articles[i].trueVoters.length + articles[i].unsureVoters.length;
-            uint majority = (articles[i].fakeVoters.length * 10)/ totalCount;
-            bool isFake = false;
 
-            if (majority > 7) {
-                isFake = true;
-            }
-            if (isFake == true) {
-                for(uint j = 0; j < articles[i].fakeVoters.length; j++) {
-                  address x = articles[i].fakeVoters[j];
-                }
-            } else {
-                for(uint k = 0; k < articles[i].trueVoters.length; k++) {
-                  address y =  articles[i].trueVoters[k];
-                }
 
+   function distributePrizes() onEndVoting {
+      uint winnerEtherAmount = 100 finney; // How much each winner gets
+
+      // Loop through all the winners to send the corresponding prize for each one
+      for (int a = 0; a < 5; a++) {
+      for(uint i = 0; i < totalArticles[i].length; i++){
+        uint totalCount = totalArticles[i].length;
+        uint fake =  artNumberToFakeVoters[i].length;
+        uint majority = ( fake *10 )/totalCount;
+        if(majority > 7) {
+            for (uint j = 0; j < fake; j++) {
+                artNumberToFakeVoters[i][j].transfer(winnerEtherAmount);
             }
-            
-            // Delete all the players for each number
-            for(uint z = 1; z <= 5; z++){
-               delete articles[z];
+        } else {
+             for (uint k = 0; k < artNumberToTrueVoters[i].length; k++) {
+                artNumberToFakeVoters[i][k].transfer(winnerEtherAmount);
             }
         }
-        
-    }
+    
 
+      }
 
+      totalVotes = 0;
+      numberOfVotes = 0;
+      }
+          
+      }
 }
