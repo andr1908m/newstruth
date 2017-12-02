@@ -9,11 +9,6 @@
   <script src="https://use.fontawesome.com/c5f7817904.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
-
-
-   
-   
-
   <script type="text/javascript">
 
 // window.fbAsyncInit.apply();
@@ -114,7 +109,14 @@ fetch(req)
  <body class="container-fluid">
 <!-- facebook script -->
 <script>
-
+// Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
     
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
@@ -176,20 +178,11 @@ fetch(req)
   //
   // These three cases are handled in the callback function.
 
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
+  checkLoginState();
 
   };
 
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+  
 
  
   
