@@ -125,13 +125,14 @@ fetch(req)
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
       
-      var user_access_token = "";
+      var user_access_token = FB.getAuthRespone()['accessToken'];
         
         //me?fields=about,address,education,birthday,age_range,currency,gender,first_name,hometown
         //fields=education,age_range,gender,first_name,hometown,work,is_verified
         
         $.getJSON('https://graph.facebook.com/me?fields=education,age_range,gender,first_name,hometown,work,is_verified&access_token='+user_access_token, function(mydata) {
-        for (var i in mydata.data) {
+        
+	for (var i in mydata.data) {
             console.log(i)
 				   }
 	});
