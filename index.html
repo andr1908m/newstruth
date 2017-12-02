@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NewsTruth</title>
+  
+ 
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  
+  <script src="https://use.fontawesome.com/c5f7817904.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript">
+  	
+
+  	function getResponse()
+        {
+            $.ajax({
+                type: "GET",               
+                url: "https://jsonplaceholder.typicode.com/posts/1",               
+                dataType: "json",
+               
+               	error: function (response) {           
+                        alert('Error: There was a problem processing your request, please refresh the browser and try again');
+                },
+                success: function (response) {
+            	console.log(response);
+            	var random = response;
+            	return random;
+               }
+        });
+
+        } 
+
+    //var response = getResponse();
+    var number = getResponse();
+  	var textForHeadline = JSON.parse(number);
+  	var title = textForHeadline.title;
+
+  	$(document).ready(function(){
+    $("#headline1").text(title);
+});
+  </script>
+
+
+</head>
+
+ <body class="">
+ 
+ <div class="container">
+ 	
+ 	<table class="table">
+ 	
+ 	<thead>
+ 		<th> <h1>NewsTruth</h1> </th>
+ 		<th class="text-right"> <a href="https://www.google.com" class="btn btn-primary">
+  <i class="fa fa-facebook-official " aria-hidden="true"></i> Login With Facebook
+  	</a> </th>
+ 	</thead>
+
+  	</table>
+  	
+ 
+</div>
+
+<div class="container jumbotron">
+	
+	<span class="border-0">
+  <div id="address"></div>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Article</th>
+          <th>Vote</th>
+          <th>Timer</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        
+        <tr>
+
+          <td><a href="https://www.nbcnews.com/feature/nbc-out/trump-failing-lead-hiv-advocates-say-world-aids-day-n824961" id="headline1"></a></td>
+          
+          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+          
+          <td id="time-1"></td>
+          
+
+        </tr>
+        
+        <tr>
+          <td>Nick</td>
+          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+          <td id="time-2"></td>
+        </tr>
+        
+        <tr>
+          <td>Jose</td>
+          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+          <td id="time-3"></td>
+        </tr>
+
+        <td><a href="https://www.nbcnews.com/feature/nbc-out/trump-failing-lead-hiv-advocates-say-world-aids-day-n824961">Trump failing to lead on HIV, advocates say on World AIDS Day</a></td>
+          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+          <td id="time-3"></td>
+        </tr>
+        
+        <tr>
+          <td>Nick</td>
+          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
+          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+          <td id="candidate-2"></td>
+        </tr>
+        
+      </tbody>
+    
+    </table>
+
+    <div id="msg"></div>
+  </div>
+
+</body>
+</div>
+
+</span>
+
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="app.js"></script>
+</html>
