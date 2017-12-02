@@ -9,26 +9,7 @@
   <script src="https://use.fontawesome.com/c5f7817904.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
-<!-- facebook script -->
-<script>
 
-    window.fbAsyncInit = function() {
-    FB.init({
-      appId            : '148790889053890',
-      autoLogAppEvents : true,
-      xfbml            : true,
-      version          : 'v2.11',
-      status
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
 
   </script>  
    
@@ -160,6 +141,50 @@ fetch(req)
 </head>
 
  <body class="container-fluid">
+<!-- facebook script -->
+<script>
+
+    <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '148790889053890',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.11'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+<div id="fb-root"></div>
+  (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=148790889053890';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+	
+
+FB.getLoginStatus(function(response) {
+    if(response.status == 'connected'){
+    	$(#"facebook-login").remove();
+	  
+    }
+	
+    else if(response.status == 'not_authorized'){
+    	
+    }
+	    
+    else if(response.status == 'unknown'){
+    
+    }
+});
+	
+
+	
+	
+</script>
  
  <div class="container">
  	
@@ -167,9 +192,8 @@ fetch(req)
  	
  	<thead>
  		<th> <h1>NewsTruth</h1> </th>
- 		<th class="text-right"> <a href="#" class="btn btn-primary" id="facebook-icon">
-  <i class="fa fa-facebook-official " aria-hidden="true" id="facebook-button"></i> Login With Facebook
-  	</a> </th>
+ 		<th class="text-right"> <div id="facebook-login" class="fb-login-button" data-width="50px" data-max-rows="1" data-size="small" data-button-type="login_with"
+		data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div> </th>
  	</thead>
 
   	</table>
