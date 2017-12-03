@@ -19,8 +19,9 @@ var topic = document.getElementById("input-topic").value;
 console.log(topic);
 var currentDate = new Date();
 console.log(currentDate.toLocaleDateString());
-var url = 'https://newsapi.org/v2/everything?' +
+var url = 'https://newsapi.org/v2/top-headlines?' +
           'q=' + topic + '&' +
+          'sources=breitbart-news&'+
           'from=' + currentDate + "&" +
           'apiKey=ecd3e07151554b989cf0b15d8fd91c6c';
 var req = new Request(url);
