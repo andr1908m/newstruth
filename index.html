@@ -19,9 +19,9 @@ var topic = document.getElementById("input-topic").value;
 console.log(topic);
 var currentDate = new Date();
 console.log(currentDate.toLocaleDateString());
-var url = 'https://newsapi.org/v2/top-headlines?' +
+var url = 'https://newsapi.org/v2/everything?' +
           'q=' + topic + '&' +
-          'sources=breitbart-news&'+
+   //       'sources=breitbart-news&'+
           'from=' + currentDate + "&" +
           'apiKey=ecd3e07151554b989cf0b15d8fd91c6c';
 var req = new Request(url);
@@ -98,12 +98,13 @@ function vote(buttonAnswer, buttonid) {
   console.log(buttonid);
   console.log(buttonAnswer);
   
+  var voteid = buttonid.replace(/[\[\]&]+/g, '');
   if (buttonAnswer.includes("Fake")){
     console.log('you voted fake');
 
     
     hideButtons(buttonid);
-    clickvoteEther(buttonid,0);
+    clickvoteEther(voteid,0);
     //ETHfunction called here
   }
 
@@ -112,14 +113,14 @@ function vote(buttonAnswer, buttonid) {
     
     hideButtons(buttonid);
 
-    clickvoteEther(buttonid,1);
+    clickvoteEther(voteid,1);
   }
 
   else if (buttonAnswer.includes("Unsure")){
     console.log('you voted unsure');
     
     hideButtons(buttonid);
-    clickvoteEther(buttonid,2);
+    clickvoteEther(voteid,2);
   }
   
 
