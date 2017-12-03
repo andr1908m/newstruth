@@ -153,7 +153,7 @@ const MyContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"total
 
 myContractInstance = MyContract.at("0xd263131b5de049f67e321bd806d417ba9f904a61");
 
-myContractInstance.vote(1,1 {
+myContractInstance.vote(1,1,{
    gas: 300000,
    from: web3.eth.accounts[0]
 }, (err, result) => {
