@@ -8,6 +8,7 @@
   
   <script src="https://use.fontawesome.com/c5f7817904.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs@0.3.0/dist/ethjs.min.js"></script>
   
 <script type="text/javascript">
 
@@ -66,18 +67,17 @@ fetch(req)
             
                 if (key < 5){
                 var record = articles[key];
-                console.log(record);
+                
                 
                 if (record.hasOwnProperty('title') && record.hasOwnProperty('url') && record.hasOwnProperty('publishedAt')) {
                 
                     var url;
-                    console.log(record.title);
+                    
                     // lol
                     if (record.url.search("www.") == -1){
                       var firstPart = record.url.substring(0, record.url.indexOf("//") +2);
                       var secondPart = record.url.substring(record.url.indexOf("//") +3);
                       var newString = firstPart + "www." + secondPart;
-                      console.log(newString);
                       url = newString;
                     }
                     $(document).ready(function(){
@@ -88,20 +88,19 @@ fetch(req)
                     $("#headline" + 2).attr("href", url);
                     $("#headline" + 2).text(articles[1].title);
           });
-          $(document).ready(function(){
+                    $(document).ready(function(){
                     $("#headline" + 3).attr("href", url);
                     $("#headline" + 3).text(articles[2].title);
           });
-          $(document).ready(function(){
+                    $(document).ready(function(){
                     $("#headline" + 4).attr("href", url);
                     $("#headline" + 4).text(articles[3].title);
           });
-          $(document).ready(function(){
-          $("#headline" + 5).attr("href", url);
+                    $(document).ready(function(){
+                    $("#headline" + 5).attr("href", url);
                     $("#headline" + 5).text(articles[4].title);
           });
-          console.log(record.publishedAt);
-                    console.log("");
+                    
                     //currentElement++;
                     }
                 }
@@ -150,11 +149,11 @@ function statusChangeCallback(response) {
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
     //for FB.getLoginStatus().
+    
     if (response.status == 'connected') {
       // Logged into your app and Facebook.
       
       user_access_token = FB.getAuthResponse()['accessToken'];
-      console.log(FB.getAuthResponse()['accessToken']);
       
         //me?fields=about,address,education,birthday,age_range,currency,gender,first_name,hometown
         //fields=education,age_range,gender,first_name,hometown,work,is_verified
