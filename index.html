@@ -168,7 +168,8 @@ myContractInstance = MyContract.at("0xd263131b5de049f67e321bd806d417ba9f904a61")
 function clickvoteEther(artid,voteid){
   console.log(artid);
   console.log(voteid);
-myContractInstance.vote(parseInt(artid)+1,voteid,{
+  var finalartid = parseInt(artid) + 1;
+myContractInstance.vote(finalartid,voteid,{
    gas: 3000000,
    from: web3.eth.accounts[0]
 }, (err, result) => {
