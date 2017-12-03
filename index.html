@@ -161,7 +161,6 @@ function statusChangeCallback(response) {
         if (typeof web3 !== 'undefined'){
         $.getJSON('https://graph.facebook.com/me?fields=education,age_range,gender,first_name,hometown,work,is_verified&access_token='+user_access_token, function(mydata) {
         
-           
            name_of_user = mydata['first_name'];
            // Update label every second
 
@@ -180,7 +179,7 @@ function statusChangeCallback(response) {
             
               if(!error){
                 var ethBalance = web3.fromWei(result, 'ether');
-                $("#authorized-text").text("Welcome" + name_of_user + "ETH Balance:" + ethBalance);
+                $("#authorized-text").text("ETH Balance:" + ethBalance);
               }
               
               else
