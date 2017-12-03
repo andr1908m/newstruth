@@ -14,47 +14,7 @@
 
 // window.fbAsyncInit.apply();
 function refreshTopic() {
-   return document.getElementById("input-topic").val;
-}
-var topic = refreshTopic();
-
-
-function hideButtons(buttonid){
-   $('#Fake' + buttonid).hide();
-   $('#NotFake' + buttonid).hide();
-   $('#Unsure' + buttonid).hide();
-}
-
-
-function vote(buttonAnswer, buttonid) {
-  console.log('you voted');
-  console.log(buttonid);
-  console.log(buttonAnswer);
-  
-  if (buttonAnswer.includes("Fake")){
-    console.log('you voted fake');
-
-    hideButtons(buttonid);
-    //ETHfunction called here
-  }
-
-  else if (buttonAnswer.includes("NotFake")){
-    console.log('you voted notfake');
-    
-    hideButtons(buttonid);
-  }
-
-  else if (buttonAnswer.includes("Unsure")){
-    console.log('you voted unsure');
-    
-    hideButtons(buttonid);
-  }
-  
-
-}
-
-
-
+var topic = $('#input-topic').val;
 var currentDate = new Date();
 console.log(currentDate.toLocaleDateString());
 var url = 'https://newsapi.org/v2/everything?' +
@@ -117,7 +77,45 @@ fetch(req)
              }
         
     })
+
+
+}
+
+
+
+function hideButtons(buttonid){
+   $('#Fake' + buttonid).hide();
+   $('#NotFake' + buttonid).hide();
+   $('#Unsure' + buttonid).hide();
+}
+
+
+function vote(buttonAnswer, buttonid) {
+  console.log('you voted');
+  console.log(buttonid);
+  console.log(buttonAnswer);
+  
+  if (buttonAnswer.includes("Fake")){
+    console.log('you voted fake');
+
+    hideButtons(buttonid);
+    //ETHfunction called here
+  }
+
+  else if (buttonAnswer.includes("NotFake")){
+    console.log('you voted notfake');
     
+    hideButtons(buttonid);
+  }
+
+  else if (buttonAnswer.includes("Unsure")){
+    console.log('you voted unsure');
+    
+    hideButtons(buttonid);
+  }
+  
+
+} 
   </script>
 
 
