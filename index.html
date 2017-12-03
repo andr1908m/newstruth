@@ -165,9 +165,11 @@ var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to
 
             setInterval(function() {
             var balanceWei = web3.eth.getBalance(web3.eth.defaultAccount).toNumber();
-            var ethBalance = web3.fromWei(balanceWei, 'ether'); }, 10000);
-
+            var ethBalance = web3.fromWei(balanceWei, 'ether'); 
             $("#authorized-text").text("Welcome" + name_of_user + "ETH Balance:" + ethBalance);
+            }, 10000);
+
+            
 
            //for (var i in mydata) {
             
