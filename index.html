@@ -15,6 +15,7 @@
 // window.fbAsyncInit.apply();
 function refreshTopic() {
 var topic = $('#input-topic').val;
+console.log(topic);
 var currentDate = new Date();
 console.log(currentDate.toLocaleDateString());
 var url = 'https://newsapi.org/v2/everything?' +
@@ -268,7 +269,7 @@ function statusChangeCallback(response) {
 
 <div class="container input-group ">
   
-  <input type="text" class="form-control" placeholder="Input Topic To Search" id="input-topic">
+  <input type="text" class="form-control" placeholder="Input Topic To Search" id="input-topic" value="politics">
   
   <span class="input-group-btn">
   <button class="btn btn-primary" onclick="refreshTopic()">Search Topic</button>
