@@ -35,7 +35,7 @@ contract Voting {
 
    mapping(uint => address[]) public totalArticles;
 
-   mapping(uint => bool) public isFake;
+   mapping(uint => uint) public isFake;
    
    // The numbers that each voter voted for
    mapping(address => uint[]) votesByEachVoter;
@@ -109,7 +109,7 @@ contract Voting {
 
    }
 
-   function artIsFake(uint article) returns(bool){
+   function artIsFake(uint article) returns(uint){
       assert(totalVotes == 2); //distributePrizes was called
 	  return isFake[article];
    } 
@@ -132,20 +132,24 @@ contract Voting {
             assert( majority > 70 );
             
             if( majority > 70 ) {
-			    isFake[i] = true;
+			    isFake[i] = 1;
 			          
                 for (uint j = 0; j < fake; j++) {
-                    //artNumberToFakeVoters[1][1] = 0xc91d9caA47e0a1904680284a2264624B6EDB55af;
+            
                     artNumberToFakeVoters[i][j].transfer(winnerEtherAmount);
                 }
             } else {
 			
-				isFake[i] = false;
-				
-                for (uint k = 0; k < artNumberToTrueVoters[i].length; k++) {
-                    //artNumberToTrueVoters[i][k] = 0x2f3538902fA66BA681C2e2FA17744913DEb5b2f5;
-                    artNumberToTrueVoters[i][k].transfer(winnerEtherAmount);
-                }
+				if( n_true > n_unsure) {
+				    isFake[i] = 1;
+					for (uint k = 0; k < artNumberToTrueVoters[i].length; k++) {
+						//artNumberToTrueVoters[i][k] = 0x2f3538902fA66BA681C2e2FA17744913DEb5b2f5;
+						artNumberToTrueVoters[i][k].transfer(winnerEtherAmount);
+					}
+				} else {
+					isFake[i] = 2;
+				}
+	
             }
             
             totalArticles[i].length = 0;
