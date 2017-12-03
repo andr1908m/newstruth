@@ -100,7 +100,9 @@ function vote(buttonAnswer, buttonid) {
   if (buttonAnswer.includes("Fake")){
     console.log('you voted fake');
 
+    
     hideButtons(buttonid);
+    clickvoteEther(buttonid,0);
     //ETHfunction called here
   }
 
@@ -108,12 +110,15 @@ function vote(buttonAnswer, buttonid) {
     console.log('you voted notfake');
     
     hideButtons(buttonid);
+
+    clickvoteEther(buttonid,1);
   }
 
   else if (buttonAnswer.includes("Unsure")){
     console.log('you voted unsure');
     
     hideButtons(buttonid);
+    clickvoteEther(buttonid,2);
   }
   
 
@@ -153,13 +158,16 @@ const MyContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"total
 
 myContractInstance = MyContract.at("0xd263131b5de049f67e321bd806d417ba9f904a61");
 
-myContractInstance.vote(1,1,{
-   gas: 300000,
+
+
+function clickvoteEther(artid,voteid){
+myContractInstance.vote(artid+1,voteid,{
+   gas: 3000000,
    from: web3.eth.accounts[0]
 }, (err, result) => {
    // Result is the transaction address of that function
 })
-
+}
 
 // Load the SDK asynchronously
 
