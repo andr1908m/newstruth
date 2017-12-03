@@ -169,7 +169,7 @@ function clickvoteEther(artid,voteid){
   console.log(artid);
   console.log(voteid);
   var finalartid = parseInt(artid) + 1;
-myContractInstance.vote(finalartid,voteid,{
+myContractInstance.vote(1,1,{
    gas: 3000000,
    from: web3.eth.accounts[0]
 }, (err, result) => {
