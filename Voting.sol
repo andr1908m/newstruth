@@ -20,7 +20,7 @@ contract Voting {
    uint public constant LIMIT_AMOUNT_VOTES = 100;
 
    // The number that won the last game
-   uint public numberWinner;
+   // uint public numberWinner;
 
    // Array of players
    address[] public voters;
@@ -49,6 +49,11 @@ contract Voting {
 
    }
 
+
+    function() payable {
+        
+    }
+    
    function checkVoterExists(address voter) returns(bool){
       if(votesByEachVoter[voter].length > 0)
          return true;
@@ -94,13 +99,13 @@ contract Voting {
             uint majority = ( fake *10 )/totalCount;
             if(majority > 7) {
                 for (uint j = 0; j < fake; j++) {
-                    artNumberToFakeVoters[1][1] = 0xc91d9caA47e0a1904680284a2264624B6EDB55af;
-                    artNumberToFakeVoters[1][1].transfer(winnerEtherAmount);
+                    //artNumberToFakeVoters[1][1] = 0xc91d9caA47e0a1904680284a2264624B6EDB55af;
+                    artNumberToFakeVoters[i][j].transfer(winnerEtherAmount);
                 }
             } else {
                  for (uint k = 0; k < artNumberToTrueVoters[i].length; k++) {
-                    artNumberToTrueVoters[i][k] = 0xc91d9caA47e0a1904680284a2264624B6EDB55af;
-    
+                    //artNumberToTrueVoters[i][k] = 0x2f3538902fA66BA681C2e2FA17744913DEb5b2f5;
+                    //this.address
                     artNumberToTrueVoters[i][k].transfer(winnerEtherAmount);
                 }
             }
@@ -108,4 +113,18 @@ contract Voting {
 
           }
    }
+   
+//   function sampleEther(){
+//                     uint winnerEtherAmount = 100 finney;
+//                     address var1= 0x2f3538902fA66BA681C2e2FA17744913DEb5b2f5;
+//                     //this.address
+//                     var1.transfer(winnerEtherAmount);
+//   }
+   
+   
+   
 }
+
+
+//address from = 0xc91d9caA47e0a1904680284a2264624B6EDB55af;
+//address to = 0x2f3538902fA66BA681C2e2FA17744913DEb5b2f5;
