@@ -138,7 +138,20 @@ function vote(buttonAnswer, buttonid) {
   
 <script>
 //ETH Label Update
+import React from 'react'
+import ReactDOM from 'react-dom'
 
+
+class App extends React.Component {
+
+constructor(props){
+  super(props)
+  this.state = {
+
+    voters: 0,
+    numberOfVotes: 0,
+
+  }
 //web3 object
 if(typeof web3 !== 'undefined')
   $('authorized-text').text('You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example')
@@ -146,6 +159,14 @@ if(typeof web3 !== 'undefined')
 web3.eth.defaultAccount = '0xc91d9caA47e0a1904680284a2264624B6EDB55af'; // account of user
 var contractAddress = '0xd263131b5de049f67e321bd806d417ba9f904a61';// account to deploy contract
 
+
+const MyContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"totalVotes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"numberOfVotes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"isFake","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"artNumberToUnsureVoters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maxAmountOfVotes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"artNumberToTrueVoters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"artNumberToFakeVoters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"article","type":"uint256"}],"name":"artIsFake","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"voter","type":"address"}],"name":"checkVoterExists","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"distributePrizes","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"totalArticles","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_maxAmountOfVotes","type":"uint256"}],"name":"Casino","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"art_num","type":"uint256"},{"name":"voteFor","type":"uint256"}],"name":"vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"LIMIT_AMOUNT_VOTES","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"voters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"}])
+
+this.state.ContractInstance = MyContract.at("0xd263131b5de049f67e321bd806d417ba9f904a61")
+}
+
+
+}
 
 
 // Load the SDK asynchronously
