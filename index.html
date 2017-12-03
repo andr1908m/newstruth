@@ -10,30 +10,7 @@
   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
   
 <script type="text/javascript">
-//ETH Label Update
 
-//web3 object
-if(typeof web3 !== 'undefined')
-  $('authorized-text').text('You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example')
-
-web3.eth.defaultAccount = '0x87b3f6def4d451c41be733b8924da66dea0caed4'; // account of user
-var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to deploy contract
-
-
-// Update label every second
-
-setInterval(function() {
-
-  var balanceWei = web3.eth.getBalance(web3.eth.defaultAccount).toNumber();
-  var balance = web3.fromWei(balanceWei, 'ether');
-  $('authorized-text').text("Your ethereum balance is: " + balance + "ETH");
-
-}, 10000);
-
-</script>
-
-
-  <script type="text/javascript">
 // window.fbAsyncInit.apply();
 
 function hideButtons(buttonid){
@@ -151,11 +128,32 @@ fetch(req)
   }(document, 'script', 'facebook-jssdk'));</script>
    
 <script>
+//ETH Label Update
+
+//web3 object
+if(typeof web3 !== 'undefined')
+  $('authorized-text').text('You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example')
+
+web3.eth.defaultAccount = '0x87b3f6def4d451c41be733b8924da66dea0caed4'; // account of user
+var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to deploy contract
+
+
+// Update label every second
+
+setInterval(function() {
+
+  var balanceWei = web3.eth.getBalance(web3.eth.defaultAccount).toNumber();
+  var ethBalance = web3.fromWei(balanceWei, 'ether');
+
+}, 10000);
+
+
+
+
 // Load the SDK asynchronously
   
     var user_acess_token;
     var name_of_user;
-    var ethBalance=0; // current ethbalance of user
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     // The response object is returned with a status field that lets the
