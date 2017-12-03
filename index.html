@@ -98,16 +98,16 @@ function vote(buttonAnswer, buttonid) {
   console.log(buttonid);
   console.log(buttonAnswer);
 
-  var dummyid = buttonid;
+  var dummyans = buttonAnswer;
   
-  var articleid = dummyid.toString().replace(/[\[\]&]+/g, '');
+  var articleid = dummyans.toString().replace(/[\[\]&]+/g, '');
   console.log(articleid);
   if (buttonAnswer.includes("Fake")){
     console.log('you voted fake');
 
     
     hideButtons(buttonid);
-    clickvoteEther(articleid,0);
+    clickvoteEther(articleid,buttonid);
     //ETHfunction called here
   }
 
@@ -116,14 +116,14 @@ function vote(buttonAnswer, buttonid) {
     
     hideButtons(buttonid);
 
-    clickvoteEther(articleid,1);
+    clickvoteEther(articleid,buttonid);
   }
 
   else if (buttonAnswer.includes("Unsure")){
     console.log('you voted unsure');
     
     hideButtons(buttonid);
-    clickvoteEther(articleid,2);
+    clickvoteEther(articleid,buttonid);
   }
   
 
@@ -329,8 +329,8 @@ function statusChangeCallback(response) {
           
           <div id="headline1-buttons">
           <td><button  id="Fake0" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
-          <button id="NotFake0" onclick="vote(this.id, 0)" class="btn btn-primary">Not Fake</button>
-          <button id="Unsure0"  onclick="vote(this.id, 0)" class="btn btn-primary">Unsure</button></td>
+          <button id="NotFake0" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure0"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
           </div>
           
           <td id="time-1"></td>
@@ -340,9 +340,9 @@ function statusChangeCallback(response) {
           <td><a id="headline2"></a></td>
 
           <div id="headline2-buttons">
-          <td><button  id="Fake1" onclick="vote(this.id, 1)" class="btn btn-primary">Fake</button>
+          <td><button  id="Fake1" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
           <button id="NotFake1" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
-          <button id="Unsure1"  onclick="vote(this.id, 1)" class="btn btn-primary">Unsure</button></td>
+          <button id="Unsure1"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
           </div>
 
           <td id="time-2"></td>
@@ -352,8 +352,8 @@ function statusChangeCallback(response) {
           <td><a id="headline3"></a></td>
 
           <div id="headline3-buttons">
-          <td><button  id="Fake2" onclick="vote(this.id, 2)" class="btn btn-primary">Fake</button>
-          <button id="NotFake2" onclick="vote(this.id, 2)" class="btn btn-primary">Not Fake</button>
+          <td><button  id="Fake2" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
+          <button id="NotFake2" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
           <button id="Unsure2"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
           </div>
 
@@ -363,9 +363,9 @@ function statusChangeCallback(response) {
         <td><a id="headline4"></a></td>
 
           <div id="headline4-buttons">
-          <td><button  id="Fake3" onclick="vote(this.id, 3)" class="btn btn-primary">Fake</button>
-          <button id="NotFake3" onclick="vote(this.id, 3)" class="btn btn-primary">Not Fake</button>
-          <button id="Unsure3"  onclick="vote(this.id, 3)" class="btn btn-primary">Unsure</button></td>
+          <td><button  id="Fake3" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
+          <button id="NotFake3" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure3"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
           </div>
 
           <td id="time-4"></td>
@@ -375,9 +375,9 @@ function statusChangeCallback(response) {
           <td><a id="headline5"></a></td>
 
           <div id="headline5-buttons">
-          <td><button  id="Fake4" onclick="vote(this.id, 4)" class="btn btn-primary">Fake</button>
-          <button id="NotFake4" onclick="vote(this.id, 4)" class="btn btn-primary">Not Fake</button>
-          <button id="Unsure4"  onclick="vote(this.id, 4)" class="btn btn-primary">Unsure</button></td>
+          <td><button  id="Fake4" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
+          <button id="NotFake4" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure4"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
           </div>
 
           <td id="time-5"></td>
