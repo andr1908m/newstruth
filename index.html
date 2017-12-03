@@ -101,6 +101,7 @@ function vote(buttonAnswer, buttonid) {
   var dummyid = buttonid;
   
   var articleid = dummyid.toString().replace(/[\[\]&]+/g, '');
+  console.log(articleid);
   if (buttonAnswer.includes("Fake")){
     console.log('you voted fake');
 
