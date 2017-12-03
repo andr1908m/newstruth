@@ -18,7 +18,6 @@ function hideButtons(buttonid){
    $('#Fake' + buttonid).hide();
    $('#NotFake' + buttonid).hide();
    $('#Unsure' + buttonid).hide();
-
 }
 
 
@@ -29,24 +28,31 @@ function vote(buttonAnswer, buttonid) {
   
   if (buttonAnswer.includes("Fake")){
     console.log('you voted fake');
+
     hideButtons(buttonid);
     //ETHfunction called here
   }
 
   else if (buttonAnswer.includes("NotFake")){
     console.log('you voted notfake');
+    
     hideButtons(buttonid);
   }
 
   else if (buttonAnswer.includes("Unsure")){
     console.log('you voted unsure');
+    
     hideButtons(buttonid);
   }
   
 
 }
 
-var topic = 'apple';
+function() refreshTopic{
+   return $("input-topic").val();
+}
+var topic = refreshTopic();
+
 var currentDate = new Date();
 console.log(currentDate.toLocaleDateString());
 var url = 'https://newsapi.org/v2/everything?' +
@@ -134,7 +140,7 @@ fetch(req)
 if(typeof web3 !== 'undefined')
   $('authorized-text').text('You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example')
 
-web3.eth.defaultAccount = '0x87b3f6def4d451c41be733b8924da66dea0caed4'; // account of user
+web3.eth.defaultAccount = '0xD60fbdB77bA90CB76d51B63d06684e0747Cf3491'; // account of user
 var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to deploy contract
 
 
@@ -149,7 +155,7 @@ function statusChangeCallback(response) {
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
     //for FB.getLoginStatus().
-    
+
     if (response.status == 'connected') {
       // Logged into your app and Facebook.
       
@@ -235,6 +241,8 @@ function statusChangeCallback(response) {
   checkLoginState();
 }
 
+
+
  
 </script>
 
@@ -260,10 +268,10 @@ function statusChangeCallback(response) {
 
 <div class="container input-group ">
   
-  <input type="text" class="form-control" placeholder="Input Topic To Search" >
+  <input type="text" class="form-control" placeholder="Input Topic To Search" id="input-topic">
   
   <span class="input-group-btn">
-  <button class="btn btn-primary" id="input-button">Search Topic</button>
+  <button class="btn btn-primary" onclick="refreshTopic()">Search Topic</button>
   </span>
 
 </div>
