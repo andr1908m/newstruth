@@ -14,7 +14,9 @@
 
 // window.fbAsyncInit.apply();
 function refreshTopic() {
-var topic = $('#input-topic').val;
+  
+var topic = document.getElementById("input-topic").value;
+//var topic = $('#input-topic').val;
 console.log(topic);
 var currentDate = new Date();
 console.log(currentDate.toLocaleDateString());
