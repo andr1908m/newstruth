@@ -174,7 +174,7 @@ function clickvoteEther(artid,voteid){
 
 
   var finalartid = parseInt(artid) + 1;
-myContractInstance.vote(1,1,{
+   myContractInstance.vote(1,1,{
    gas: 3000000,
    from: web3.eth.accounts[0]
 }, (err, result) => {
@@ -186,7 +186,10 @@ myContractInstance.vote(1,1,{
  	var resultsArray = new Array(5);
     
     for(var i=0; i<5; i++){
-    	resultsArray[i] = myContractInstance.artIsFake(i);
+    	resultsArray[i] = myContractInstance.artIsFake(i, {
+   gas: 3000000,
+   from: web3.eth.accounts[0]
+} ,(err, result) => {});
     	if (resultsArray[i] == 0)
     		$('#result' + i).text("Fake");
     	else if (resultsArray[i] == 1)
