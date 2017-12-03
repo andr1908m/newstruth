@@ -205,6 +205,8 @@ var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to
     }
       
   });
+      }
+    }
  
 
   
@@ -217,7 +219,9 @@ var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to
       statusChangeCallback(response);
     });
   }
+
   window.fbAsyncInit = function() {
+  
   FB.init({
     appId      : '148790889053890',
     cookie     : true,  // enable cookies to allow the server to access 
@@ -237,8 +241,7 @@ var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to
   //
   // These three cases are handled in the callback function.
   checkLoginState();
-  }
-  
+}
  
   
 </script> 
