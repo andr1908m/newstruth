@@ -160,7 +160,6 @@ if(typeof web3 !== 'undefined')
   $('authorized-text').text('You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example')
 
 web3.eth.defaultAccount = '0xc91d9caA47e0a1904680284a2264624B6EDB55af'; // account of user
-var contractAddress = '0xd263131b5de049f67e321bd806d417ba9f904a61';// account to deploy contract
 
 
 const MyContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"totalVotes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"numberOfVotes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"isFake","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"artNumberToUnsureVoters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maxAmountOfVotes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"artNumberToTrueVoters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"artNumberToFakeVoters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"article","type":"uint256"}],"name":"artIsFake","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"voter","type":"address"}],"name":"checkVoterExists","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"distributePrizes","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"totalArticles","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_maxAmountOfVotes","type":"uint256"}],"name":"Casino","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"art_num","type":"uint256"},{"name":"voteFor","type":"uint256"}],"name":"vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"LIMIT_AMOUNT_VOTES","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"voters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"}])
@@ -172,6 +171,8 @@ myContractInstance = MyContract.at("0x43d53a15bae3ebefc5a0db767a0ec766fe6c3df9")
 function clickvoteEther(artid,voteid){
   console.log(artid);
   console.log(voteid);
+
+
   var finalartid = parseInt(artid) + 1;
 myContractInstance.vote(1,1,{
    gas: 3000000,
@@ -179,6 +180,24 @@ myContractInstance.vote(1,1,{
 }, (err, result) => {
    // Result is the transaction address of that function
 })
+
+ if (!$('#Fake0').is(":visible") && !$('#NotFake0').is(":visible") && !$('#Unsure0').is(":visible") && !$('#Fake1').is(":visible") && !$('#NotFake1').is(":visible") && !$('#Unsure1').is(":visible") !$('#Fake2').is(":visible") && !$('#NotFake2').is(":visible") && !$('#Unsure2').is(":visible") && !$('#Fake3').is(":visible") && !$('#NotFake3').is(":visible") && !$('#Unsure3').is(":visible") && !$('#Fake4').is(":visible") && !$('#NotFake4').is(":visible") && !$('#Unsure4').is(":visible") && !$('#Fake5').is(":visible") && !$('#NotFake5').is(":visible") && !$('#Unsure5').is(":visible")) {
+
+ 	var resultsArray = new Array(5);
+    
+    for(var i=0; i<5; i++){
+    	resultsArray[i] = myContractInstance.artIsFake(i);
+    	if (resultsArray[i] == 0)
+    		$('#result' + i).text("Fake");
+    	else if (resultsArray[i] == 1)
+    		$('#result' + i).text("Not Fake");
+    	else if (resultsArray[i] == 2)
+    		$('#result' + i).text("Unsure");
+    } 
+
+ 	
+ }
+
 }
 
 // Load the SDK asynchronously
