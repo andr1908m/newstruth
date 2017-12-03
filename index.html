@@ -143,8 +143,8 @@ function vote(buttonAnswer, buttonid) {
 if(typeof web3 !== 'undefined')
   $('authorized-text').text('You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example')
 
-web3.eth.defaultAccount = '0xD60fbdB77bA90CB76d51B63d06684e0747Cf3491'; // account of user
-var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to deploy contract
+web3.eth.defaultAccount = '0xc91d9caA47e0a1904680284a2264624B6EDB55af'; // account of user
+var contractAddress = '0xd263131b5de049f67e321bd806d417ba9f904a61';// account to deploy contract
 
 
 
@@ -184,6 +184,7 @@ function statusChangeCallback(response) {
             }
 
             var balanceWei = web3.eth.getBalance(web3.eth.defaultAccount, function(error, result){
+              console.log(balanceWei);
             
               if(!error){
                 var ethBalance = web3.fromWei(result, 'ether');
