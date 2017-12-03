@@ -164,7 +164,7 @@ var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to
            // Update label every second
 
             
-            var balanceWei = web3.eth.getBalance(web3.eth.defaultAccount function(error, result){
+            var balanceWei = web3.eth.getBalance(web3.eth.defaultAccount, function(error, result){
               
               if(!error)
               console.log(result)
