@@ -24,16 +24,18 @@ var url = 'https://newsapi.org/v2/everything?' +
           'sources=breitbart-news&'+
           'from=' + currentDate + "&" +
           'apiKey=ecd3e07151554b989cf0b15d8fd91c6c';
+
 var req = new Request(url);
 fetch(req)
     .then(response => response.json())
     .then(json => {
         console.log(json);
+        
         if (json.hasOwnProperty('articles')) {
             var articles = json['articles']
             
             
-            //var currentElement = 0;
+            var currentElement = 0;
             for (key in articles) {
             
                 if (key < 5){
@@ -41,8 +43,9 @@ fetch(req)
                 
                 
                 if (record.hasOwnProperty('title') && record.hasOwnProperty('url') && record.hasOwnProperty('publishedAt')) {
-                
-                    var url;
+                	console.log(record.url)
+                    
+                    
                     
                     // lol
                     if (record.url.search("www.") == -1){
@@ -51,28 +54,29 @@ fetch(req)
                       var newString = firstPart + "www." + secondPart;
                       url = newString;
                     }
+
                     $(document).ready(function(){
-                    $("#headline" + 1).attr("href", url);
+                    $("#headline" + 1).attr("href", "" + articles[0].url);
                     $("#headline" + 1).text(articles[0].title);
-          });
+                    });
                     $(document).ready(function(){
-                    $("#headline" + 2).attr("href", url);
+                    $("#headline" + 2).attr("href", "" + articles[1].url);
                     $("#headline" + 2).text(articles[1].title);
-          });
+                    });
                     $(document).ready(function(){
-                    $("#headline" + 3).attr("href", url);
+                    $("#headline" + 3).attr("href", "" + articles[2].url);
                     $("#headline" + 3).text(articles[2].title);
-          });
+                    });
                     $(document).ready(function(){
-                    $("#headline" + 4).attr("href", url);
+                    $("#headline" + 4).attr("href", "" + articles[3].url);
                     $("#headline" + 4).text(articles[3].title);
-          });
+                    });
                     $(document).ready(function(){
-                    $("#headline" + 5).attr("href", url);
+                    $("#headline" + 5).attr("href", "" + articles[4].url);
                     $("#headline" + 5).text(articles[4].title);
-          });
+                    });
                     
-                    //currentElement++;
+                    
                     }
                 }
               
@@ -161,7 +165,7 @@ var contractAddress = '0xd263131b5de049f67e321bd806d417ba9f904a61';// account to
 
 const MyContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"totalVotes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"numberOfVotes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"isFake","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"artNumberToUnsureVoters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maxAmountOfVotes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"artNumberToTrueVoters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"artNumberToFakeVoters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"article","type":"uint256"}],"name":"artIsFake","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"voter","type":"address"}],"name":"checkVoterExists","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"distributePrizes","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"name":"totalArticles","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_maxAmountOfVotes","type":"uint256"}],"name":"Casino","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"art_num","type":"uint256"},{"name":"voteFor","type":"uint256"}],"name":"vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"LIMIT_AMOUNT_VOTES","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"voters","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"}])
 
-myContractInstance = MyContract.at("0x1abc5571e4e221c313f4d6260312ee35eb7d1c94");
+myContractInstance = MyContract.at("0x43d53a15bae3ebefc5a0db767a0ec766fe6c3df9");
 
 
 
@@ -321,7 +325,7 @@ function statusChangeCallback(response) {
         <tr>
           <th>Article</th>
           <th>Vote</th>
-          <th>Timer</th>
+          <th>Result</th>
         </tr>
       </thead>
       
@@ -330,67 +334,67 @@ function statusChangeCallback(response) {
         <tr>
           <td><a id="headline1"></a></td>
           
-          <div id="headline1-buttons">
-          <td><button  id="Fake0" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
-          <button id="NotFake0" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
-          <button id="Unsure0"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
-          </div>
           
-          <td id="time-1"></td>
+          <td><button  id="Fake0" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
+          <button id="NotFake0" onclick="vote(this.id, 0)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure0"  onclick="vote(this.id, 0)" class="btn btn-primary">Unsure</button></td>
+          
+          <td id="result1"></td>
+          
         </tr>
         
         <tr>
           <td><a id="headline2"></a></td>
 
-          <div id="headline2-buttons">
-          <td><button  id="Fake1" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
+          
+          <td><button  id="Fake1" onclick="vote(this.id, 1)" class="btn btn-primary">Fake</button>
           <button id="NotFake1" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
-          <button id="Unsure1"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
-          </div>
+          <button id="Unsure1"  onclick="vote(this.id, 1)" class="btn btn-primary">Unsure</button></td>
+          
 
-          <td id="time-2"></td>
+          <td id="result2"></td>
         </tr>
         
         <tr>
           <td><a id="headline3"></a></td>
 
-          <div id="headline3-buttons">
-          <td><button  id="Fake2" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
-          <button id="NotFake2" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
+          
+          <td><button  id="Fake2" onclick="vote(this.id, 2)" class="btn btn-primary">Fake</button>
+          <button id="NotFake2" onclick="vote(this.id, 2)" class="btn btn-primary">Not Fake</button>
           <button id="Unsure2"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
-          </div>
+          
 
-          <td id="time-3"></td>
+          <td id="result3"></td>
         </tr>
 
         <td><a id="headline4"></a></td>
 
-          <div id="headline4-buttons">
-          <td><button  id="Fake3" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
-          <button id="NotFake3" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
-          <button id="Unsure3"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
-          </div>
+          
+          <td><button  id="Fake3" onclick="vote(this.id, 3)" class="btn btn-primary">Fake</button>
+          <button id="NotFake3" onclick="vote(this.id, 3)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure3"  onclick="vote(this.id, 3)" class="btn btn-primary">Unsure</button></td>
+          
 
-          <td id="time-4"></td>
+          <td id="result4"></td>
         </tr>
         
         <tr>
           <td><a id="headline5"></a></td>
 
-          <div id="headline5-buttons">
-          <td><button  id="Fake4" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
-          <button id="NotFake4" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
-          <button id="Unsure4"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
-          </div>
+          
+          <td><button  id="Fake4" onclick="vote(this.id, 4)" class="btn btn-primary">Fake</button>
+          <button id="NotFake4" onclick="vote(this.id, 4)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure4"  onclick="vote(this.id, 4)" class="btn btn-primary">Unsure</button></td>
+          
 
-          <td id="time-5"></td>
+          <td id="result5"></td>
         </tr>
         
       </tbody>
     
     </table>
 
-    <div id="msg"></div>
+    
   </div>
 
 </body>
