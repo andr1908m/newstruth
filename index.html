@@ -8,9 +8,66 @@
   
   <script src="https://use.fontawesome.com/c5f7817904.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  
+<script type="text/javascript">
+//ETH Label Update
+
+//web3 object
+if(typeof web3 !== 'undefined')
+  $('authorized-text').text('You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example')
+
+web3.eth.defaultAccount = '0x87b3f6def4d451c41be733b8924da66dea0caed4'; // account of user
+var contractAddress = '0x58b671784f4fa6b02e3dcac9f9dd215b66b5669b';// account to deploy contract
+
+
+// Update label every second
+
+setInterval(function() {
+
+  var balanceWei = web3.eth.getBalance(web3.eth.defaultAccount).toNumber();
+  var balance = web3.fromWei(balanceWei, 'ether');
+  $('authorized-text').text("Your ethereum balance is: " + balance + "ETH");
+
+}, 10000);
+
+</script>
+
 
   <script type="text/javascript">
 // window.fbAsyncInit.apply();
+
+function hideButtons(buttonid){
+   $('#Fake' + buttonid).hide();
+   $('#NotFake' + buttonid).hide();
+   $('#Unsure' + buttonid).hide();
+
+}
+
+
+function vote(buttonAnswer, buttonid) {
+  console.log('you voted');
+  console.log(buttonid);
+  console.log(buttonAnswer);
+  
+  if (buttonAnswer.includes("Fake")){
+    console.log('you voted fake');
+    hideButtons(buttonid);
+    //ETHfunction called here
+  }
+
+  else if (buttonAnswer.includes("NotFake")){
+    console.log('you voted notfake');
+    hideButtons(buttonid);
+  }
+
+  else if (buttonAnswer.includes("Unsure")){
+    console.log('you voted unsure');
+    hideButtons(buttonid);
+  }
+  
+
+}
+
 var topic = 'apple';
 var currentDate = new Date();
 console.log(currentDate.toLocaleDateString());
@@ -98,6 +155,7 @@ fetch(req)
   
     var user_acess_token;
     var name_of_user;
+    var ethBalance=0; // current ethbalance of user
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     // The response object is returned with a status field that lets the
@@ -116,13 +174,13 @@ fetch(req)
         $.getJSON('https://graph.facebook.com/me?fields=education,age_range,gender,first_name,hometown,work,is_verified&access_token='+user_access_token, function(mydata) {
            
            name_of_user = mydata['first_name'];
-           console.log(name_of_user)
+           $("#authorized-text").text("Welcome" + name_of_user + "ETH Balance:" + ethBalance);
            //for (var i in mydata) {
             
            //}
            
                                                });
-      $("#authorized-text").text("This app is meant for authorized users");
+      
     
     } 
     else{
@@ -217,40 +275,60 @@ fetch(req)
         
         <tr>
           <td><a id="headline1"></a></td>
-          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+          
+          <div id="headline1-buttons">
+          <td><button  id="Fake0" onclick="vote(this.id, 0)" class="btn btn-primary">Fake</button>
+          <button id="NotFake0" onclick="vote(this.id, 0)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure0"  onclick="vote(this.id, 0)" class="btn btn-primary">Unsure</button></td>
+          </div>
+          
           <td id="time-1"></td>
         </tr>
         
         <tr>
           <td><a id="headline2"></a></td>
-          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+
+          <div id="headline2-buttons">
+          <td><button  id="Fake1" onclick="vote(this.id, 1)" class="btn btn-primary">Fake</button>
+          <button id="NotFake1" onclick="vote(this.id, 1)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure1"  onclick="vote(this.id, 1)" class="btn btn-primary">Unsure</button></td>
+          </div>
+
           <td id="time-2"></td>
         </tr>
         
         <tr>
           <td><a id="headline3"></a></td>
-          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+
+          <div id="headline3-buttons">
+          <td><button  id="Fake2" onclick="vote(this.id, 2)" class="btn btn-primary">Fake</button>
+          <button id="NotFake2" onclick="vote(this.id, 2)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure2"  onclick="vote(this.id, 2)" class="btn btn-primary">Unsure</button></td>
+          </div>
+
           <td id="time-3"></td>
         </tr>
 
         <td><a id="headline4"></a></td>
-          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+
+          <div id="headline4-buttons">
+          <td><button  id="Fake3" onclick="vote(this.id, 3)" class="btn btn-primary">Fake</button>
+          <button id="NotFake3" onclick="vote(this.id, 3)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure3"  onclick="vote(this.id, 3)" class="btn btn-primary">Unsure</button></td>
+          </div>
+
           <td id="time-4"></td>
         </tr>
         
         <tr>
           <td><a id="headline5"></a></td>
-          <td><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Not Fake</a>
-          <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Unsure</a></td>
+
+          <div id="headline5-buttons">
+          <td><button  id="Fake4" onclick="vote(this.id, 4)" class="btn btn-primary">Fake</button>
+          <button id="NotFake4" onclick="vote(this.id, 4)" class="btn btn-primary">Not Fake</button>
+          <button id="Unsure4"  onclick="vote(this.id, 4)" class="btn btn-primary">Unsure</button></td>
+          </div>
+
           <td id="time-5"></td>
         </tr>
         
