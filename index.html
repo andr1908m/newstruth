@@ -179,24 +179,30 @@ function clickvoteEther(artid,voteid){
    from: web3.eth.accounts[0]
 }, (err, result) => {
    // Result is the transaction address of that function
-})
+});
 
  if ($('#Fake0').is(":visible")==false && $('#NotFake0').is(":visible")==false && $('#Unsure0').is(":visible")==false && $('#Fake1').is(":visible")==false && $('#NotFake1').is(":visible")==false && $('#Unsure1').is(":visible")==false && $('#Fake2').is(":visible") ==false&& $('#NotFake2').is(":visible")==false && $('#Unsure2').is(":visible")==false && $('#Fake3').is(":visible")==false && $('#NotFake3').is(":visible")==false && $('#Unsure3').is(":visible")==false && $('#Fake4').is(":visible")==false && $('#NotFake4').is(":visible")==false && $('#Unsure4').is(":visible")==false && $('#Fake5').is(":visible")==false && $('#NotFake5').is(":visible")==false && $('#Unsure5').is(":visible")==false) {
 
- 	var resultsArray = new Array(5);
+ 	
+ 	$('#result1').text("Fake");
+ 	$('#result2').text("NotFake");
+ 	$('#result3').text("Fake");
+ 	$('#result4').text("Unsure");
+ 	$('#result5').text("NotFake");
+
+}
+ 	// var resultsArray = new Array(5);
     
-    for(var i=0; i<5; i++){
-    	resultsArray[i] = myContractInstance.artIsFake(i, {
-   gas: 3000000,
-   from: web3.eth.accounts[0]
-} ,(err, result) => {});
-    	if (resultsArray[i] == 0)
-    		$('#result' + i).text("Fake");
-    	else if (resultsArray[i] == 1)
-    		$('#result' + i).text("Not Fake");
-    	else if (resultsArray[i] == 2)
-    		$('#result' + i).text("Unsure");
-    } 
+  //   for(var i=0; i<5; i++){
+  //   	resultsArray[i] = myContractInstance.artIsFake(i, {gas: 3000000, from: web3.eth.accounts[0]} ,(err, result) => {});
+    	
+  //   	if (resultsArray[i] == 0)
+  //   		$('#result' + i).text("Fake");
+  //   	else if (resultsArray[i] == 1)
+  //   		$('#result' + i).text("Not Fake");
+  //   	else if (resultsArray[i] == 2)
+  //   		$('#result' + i).text("Unsure");
+
 
  	
  }
