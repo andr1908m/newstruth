@@ -1,5 +1,8 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.1;
 
+
+/// @title Contract to bet Ether for a number and win randomly when the number of bets is met.
+/// @author Merunas Grincalaitis
 contract Voting {
    address owner;
 
@@ -100,14 +103,14 @@ contract Voting {
       numberOfVotes += 1;
       totalArticles[art_num].push(msg.sender);
       totalVotes += 1;
-	  if (totalVotes == 2) {
-	     distributePrizes();
+	  if (totalVotes == 5) {
+	    // distributePrizes();
 	  }
 
    }
 
    function artIsFake(uint article) returns(uint){
-      assert(totalVotes == 2); //distributePrizes was called
+      assert(totalVotes == 5); //distributePrizes was called
 	  return isFake[article];
    } 
 
@@ -115,18 +118,14 @@ contract Voting {
       uint winnerEtherAmount = 100 finney; // How much each winner gets
       //assert(totalVotes > 0);
       // Loop through all the winners to send the corresponding prize for each one
-          for(uint i = 1; i <= 2; i++){
+          for(uint i = 1; i <= 5; i++){
             //Number of voters for each article 
             uint totalCount = totalArticles[i].length;
-            assert(totalCount > 0);
             uint fake =  (artNumberToFakeVoters[i].length) ;
-            assert(fake > 0);
             uint n_true =  (artNumberToTrueVoters[i].length) ;
             uint n_unsure =  (artNumberToUnsureVoters[i].length) ;
             uint check = n_true + n_unsure;
-            assert(fake > (n_true + n_unsure));
             uint majority = (fake * 100) / totalCount;
-            assert( majority > 70 );
             
             if( majority > 70 ) {
 			    isFake[i] = 1;
@@ -141,7 +140,7 @@ contract Voting {
 				    isFake[i] = 1;
 					for (uint k = 0; k < artNumberToTrueVoters[i].length; k++) {
 						//artNumberToTrueVoters[i][k] = 0x2f3538902fA66BA681C2e2FA17744913DEb5b2f5;
-						artNumberToTrueVoters[i][k].transfer(winnerEtherAmount);
+					//	artNumberToTrueVoters[i][k].transfer(winnerEtherAmount);
 					}
 				} else {
 					isFake[i] = 2;
