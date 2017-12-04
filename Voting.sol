@@ -1,8 +1,5 @@
-pragma solidity ^0.4.1;
+pragma solidity ^0.4.11;
 
-
-/// @title Contract to bet Ether for a number and win randomly when the number of bets is met.
-/// @author Merunas Grincalaitis
 contract Voting {
    address owner;
 
